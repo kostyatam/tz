@@ -1,0 +1,25 @@
+{
+  "name": "vee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --optimize-dedupe --content-base build/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "angular": "^1.5.3",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "faker": "^3.1.0",
+    "file-loader": "^0.8.5",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "text-loader": "0.0.1",
+    "ui-router": "^1.0.0-alpha0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

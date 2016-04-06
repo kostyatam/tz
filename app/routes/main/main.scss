@@ -1,0 +1,64 @@
+.main {
+  position: relative;
+
+  * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  &__column {
+    position: absolute;
+    width: 30%;
+    top: 0;
+    left: 0;
+
+    &:nth-child(odd) {
+      left: auto;
+      right: 0
+    }
+  }
+  &__info {
+    width: 30%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+.column {
+  padding: 20px;
+  border: 1px solid #ccc;
+
+  &__item {
+    display: block;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+
+    &_selected {
+      padding-left: 2px;
+      border-left: 3px solid #999;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  &__icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+
+    $icons: "nature", "shapes", "summer", "technology";
+    @each $name in $icons {
+      &_#{$name} {
+        background: url("icons/#{$name}.svg") no-repeat;
+      }
+    }
+
+  }
+}

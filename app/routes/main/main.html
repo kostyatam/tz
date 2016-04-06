@@ -1,0 +1,22 @@
+<div class="main"
+     area-with-draggables
+     on-success="model.success"
+     ondragstart="return false;">
+    <div class="main__column column"
+         ng-repeat="store in model.stores"
+         draggable-store
+         name="store.name">
+        <input ng-if="store.showInput" type="text" ng-model="store.filter.name"/>
+        <div class="column__item"
+             ng-class="{column__item_selected: item.selected}"
+             ng-repeat="item in store.items | filter:store.filter:orderBy"
+             ng-mousedown="model.selectItem(store.name, $index)"
+             draggable-item
+             item-data="$index">
+            {{::item.name}}
+        </div>
+    </div>
+    <div class="main__info" ondragstart="return false;">
+        name: {{model.info.name}}
+    </div>
+</div>
