@@ -9,7 +9,10 @@ app
 
 function areaWithDraggables ($document) {
     return {
-        restrict: 'A',
+        restrict: 'AE',
+        replace: true,
+        template: '<div ng-transclude></div>',
+        transclude: true,
         scope: {
             onSuccess: '='
         },
@@ -72,7 +75,10 @@ function areaWithDraggables ($document) {
 
 function draggableStore () {
     return {
-        restrict: 'A',
+        restrict: 'AE',
+        replace: true,
+        template: '<div ng-transclude></div>',
+        transclude: true,
         scope: {
             name: '='
         },
@@ -92,7 +98,10 @@ function draggableStore () {
 
 function draggableItem () {
     return {
-        restrict: 'A',
+        restrict: 'AE',
+        replace: true,
+        template: '<div ng-transclude></div>',
+        transclude: true,
         scope: {
             itemData: '='
         },
@@ -100,7 +109,6 @@ function draggableItem () {
         link: function ($scope, $elem, $attrs, ctrl) {
             var elem = $elem[0];
             var data = {
-                elem: elem,
                 data: $scope,
                 from: ctrl.name,
                 parent: elem.parentNode,
@@ -160,9 +168,10 @@ function getDragObject (e) {
 
     var drag = angular.extend({},
         data, {
+            elem: target,
             downX: e.pageX,
             downY: e.pageY,
-            nextSibling: data.elem.nextElementSibling,
+            nextSibling: target.nextElementSibling,
             hide: function () {
                 this.elem.style.display = 'none';
             },

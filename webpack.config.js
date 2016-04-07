@@ -1,5 +1,5 @@
 'use strict';
-
+var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -14,6 +14,12 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('style.css')
     ],
+    resolve: {
+        root: path.resolve(__dirname),
+        alias: {
+            utils: 'app/utils'
+        }
+    },
     module: {
         loaders: [{
             test: /\.html$/,

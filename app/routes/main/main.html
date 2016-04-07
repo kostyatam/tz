@@ -1,22 +1,69 @@
-<div class="main"
-     area-with-draggables
-     on-success="model.success"
-     ondragstart="return false;">
-    <div class="main__column column"
-         ng-repeat="store in model.stores"
-         draggable-store
-         name="store.name">
-        <input ng-if="store.showInput" type="text" ng-model="store.filter.name"/>
-        <div class="column__item"
-             ng-class="{column__item_selected: item.selected}"
-             ng-repeat="item in store.items | filter:store.filter:orderBy"
-             ng-mousedown="model.selectItem(store.name, $index)"
-             draggable-item
-             item-data="$index">
+<area-with-draggables
+        on-success="model.success"
+        class="main"
+        ondragstart="return false;">
+
+    <draggable-store name="model.left.name"
+                     class="main__column column">
+        <div class="column__heading">
+            <label>
+                Sort:
+                <input  ng-model="model.order"
+                        ng-model-options="{debounce: 100}"
+                        type="checkbox"/>
+            </label>
+            <input ng-model="model.filter.name"
+                   ng-model-options="{debounce: 100}"
+                   type="text"
+                   placeholder="text filter"/>
+        </div>
+        <draggable-item item-data="item.id"
+                        class="column__item"
+                        ng-class="{column__item_selected: item.selected}"
+                        ng-repeat="item in model.left.items | filter:model.filter | orderBy:'name': !model.order"
+                        ng-mousedown="model.selectItem(model.left.name, item.id)">
             {{::item.name}}
+            <display-flags flags="item.flags"></display-flags>
+            </div>
+        </draggable-item>
+    </draggable-store>
+
+    <draggable-store name="model.right.name"
+                     class="main__column main__column_right column">
+
+        <div class="column__heading">
+            <label class="column__icon column__check-flag {{'column__icon_' + type.name}}"
+                   ng-class="{'column__check-flag_selected': type.selected}"
+                   ng-repeat="type in model.types">
+                <input class=""
+                       type="checkbox"
+                       ng-model="type.selected"
+                       ng-model-options="{debounce: 100}"
+                       ng-change="model.flagChange(type.name)"/>
+            </label>
+        </div>
+        <draggable-item class="column__item"
+                        ng-class="{column__item_selected: item.selected}"
+                        ng-repeat="item in model.right.items | inArray:model.flags:'flags'"
+                        ng-mousedown="model.selectItem(model.right.name, item.id)"
+                        item-data="item.id">
+
+            {{::item.name}}
+
+            <display-flags flags="item.flags"></display-flags>
+        </draggable-item>
+    </draggable-store>
+
+    <div ng-hide="!model.info.selected"
+         class="main__info"
+         ondragstart="return false;">
+        <div>
+            name: {{model.info.name}}
+        </div>
+        <div>
+            flags: <span ng-repeat="flag in model.info.flags"
+                         class="column__icon"
+                         ng-class="'column__icon_' + flag"></span>
         </div>
     </div>
-    <div class="main__info" ondragstart="return false;">
-        name: {{model.info.name}}
-    </div>
-</div>
+</area-with-draggables>

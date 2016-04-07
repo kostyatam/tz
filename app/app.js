@@ -7,3 +7,6 @@ var myApp = angular.module('myApp', ['ui.router']);
 require('./routes/router');
 require('./directives');
 require('./services');
+require('./filters');
+
+require('!file?name=[name].[ext]!./index.html');
